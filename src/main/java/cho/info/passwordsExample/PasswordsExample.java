@@ -3,14 +3,18 @@ package cho.info.passwordsExample;
 import cho.info.passwords.Passwords;
 import cho.info.passwords.api.PasswordsApi;
 import cho.info.passwords.utls.ConfigManager;
+import cho.info.passwords.utls.Messages;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class PasswordsExample extends JavaPlugin implements Listener {
+
+    public Messages messages;
 
 
 
@@ -47,6 +51,11 @@ public final class PasswordsExample extends JavaPlugin implements Listener {
         // Reset Config
         passwordsApi.behavior().resetConfig("Reset Config");
 
+        // Messages system
+        messages.sendMessage(Bukkit.getPlayer("ExamplePlayer"), "Example Message");
+        messages.sendTitel(Bukkit.getPlayer("ExamplePlayer"), "Example Title", "Example Subtitle");
+        messages.sendActonBar(Bukkit.getPlayer("ExamplePlayer"), "Example Actionbar");
+
 
     }
 
@@ -70,6 +79,13 @@ public final class PasswordsExample extends JavaPlugin implements Listener {
 
         // Set Login Gamemode
         passwordsApi.config().setLoginGamemode("survival");
+
+        // Password GUI ( these are Dispenser GUIs )
+        Inventory passwordGui = passwordsApi.behavior().getInventory();
+
+        // First Join GUI ( The first time a player joins the server )
+        Inventory passwordFirstJoinGui = passwordsApi.behavior().getFirstLoginInventory();
+
 
     }
 

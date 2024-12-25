@@ -22,7 +22,7 @@ dependencies {
   compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
 
   // Lokale .jar-Datei einbinden
-  implementation files("$projectDir/lib/passwords-1.4.jar")
+  implementation files("$projectDir/lib/passwords-1.5.jar")
 }
 
 def targetJavaVersion = 21
