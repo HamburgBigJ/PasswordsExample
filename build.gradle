@@ -21,41 +21,35 @@ dependencies {
   // Paper API
   compileOnly("io.papermc.paper:paper-api:1.21-R0.1-SNAPSHOT")
 
-  // Lokale .jar-Datei einbinden
-  implementation files("$projectDir/lib/passwords-1.5.jar")
+  // Local Jar
+  implementation files("$projectDir/lib/passwords-1.8.jar")
 }
 
 def targetJavaVersion = 21
 
 java {
-  // Java-Kompatibilität einstellen
   def javaVersion = JavaVersion.toVersion(targetJavaVersion)
   sourceCompatibility = javaVersion
   targetCompatibility = javaVersion
 
-  // Toolchain verwenden, falls aktuelle Version niedriger ist
   if (JavaVersion.current() < javaVersion) {
     toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
   }
 }
 
 tasks.withType(JavaCompile).configureEach {
-  // UTF-8 Encoding setzen
   options.encoding = 'UTF-8'
 
-  // Release-Option für Java 10+ setzen
   if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
     options.release.set(targetJavaVersion)
   }
 }
 
 processResources {
-  // Plugin-Properties erweitern
   def props = [version: version]
   inputs.properties props
   filteringCharset 'UTF-8'
 
-  // `plugin.yml` mit Properties versehen
   filesMatching('plugin.yml') {
     expand props
   }

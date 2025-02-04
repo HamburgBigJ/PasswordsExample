@@ -2,10 +2,9 @@ package cho.info.passwordsExample;
 
 import cho.info.passwords.Passwords;
 import cho.info.passwords.api.PasswordsApi;
-import cho.info.passwords.utls.ConfigManager;
+import cho.info.passwords.api.password.customgui.CustomGui;
 import cho.info.passwords.utls.Messages;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -15,8 +14,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class PasswordsExample extends JavaPlugin implements Listener {
 
     public Messages messages;
-
-
 
     @Override
     public void onEnable() {
@@ -51,10 +48,17 @@ public final class PasswordsExample extends JavaPlugin implements Listener {
         // Reset Config
         passwordsApi.behavior().resetConfig("Reset Config");
 
+        // Set Login Screen ( currently only supports one addon name : custom )
+        passwordsApi.customGui().setType("custom");
+
         // Messages system
         messages.sendMessage(Bukkit.getPlayer("ExamplePlayer"), "Example Message");
         messages.sendTitel(Bukkit.getPlayer("ExamplePlayer"), "Example Title", "Example Subtitle");
         messages.sendActonBar(Bukkit.getPlayer("ExamplePlayer"), "Example Actionbar");
+
+        // Custom GUI
+        CustomGui customGui = passwordsApi.customGui();
+        ExampleGui exampleGui = new ExampleGui(customGui);
 
 
     }
